@@ -21,6 +21,8 @@ public class CreditLineController {
         try {
             ApiResponse response = creditLineService.calculateCreditLineFacility(request);
             return new ResponseEntity<>(response, HttpStatus.OK);
+        } catch (IllegalArgumentException e) {
+            return new ResponseEntity<>(HttpStatus.BAD_REQUEST);
         } catch (Exception e) {
             return new ResponseEntity<>(HttpStatus.INTERNAL_SERVER_ERROR);
         }

@@ -5,10 +5,9 @@ Servicio REST simple desarrollado con Spring Boot para el cálculo de facilidade
 ## Descripción
 
 Este proyecto expone un endpoint REST que recibe información de:
-- Facilidad de línea de crédito del cliente
-- Perfil de crédito
-- Saldo de cuenta
-- Factores de crédito
+- Party
+- Merchant reference
+- Ubicación (ciudad)
 
 Y retorna un cálculo del margen de facilidad de crédito junto con metadatos de la transacción.
 
@@ -43,28 +42,17 @@ Calcula el margen de facilidad de crédito basado en los parámetros proporciona
 
 ```json
 {
-  "creditLineFacility": {
-    "customerCreditLine": true,
-    "minimumSalaryRequired": 12,
-    "numberOfMinimumSalary": 23
+  "party": {
+    "partyID": "227791924"
   },
-  "creditProfile": {
-    "creditLine": 23123
+  "merchantReference": {
+    "merchantId": 800
   },
-  "accountBalance": [
+  "location": [
     {
-      "accountBalance": 123.67,
-      "accountBalanceType": "currentBalance"
-    }
-  ],
-  "creditLineFactor": [
-    {
-      "factor-item": [
-        {
-          "factor": 12,
-          "factorType": "creditLineCapFactor"
-        }
-      ]
+      "city": {
+        "code": "128"
+      }
     }
   ]
 }
@@ -82,7 +70,8 @@ Calcula el margen de facilidad de crédito basado en los parámetros proporciona
   },
   "data": {
     "creditLineFacility": {
-      "creditFacilityMargin": 14521
+      "creditFacilityAvailableAmount": 102400,
+      "hasCreditFacility": true
     }
   }
 }
@@ -94,28 +83,17 @@ Calcula el margen de facilidad de crédito basado en los parámetros proporciona
 curl -X POST http://localhost:8080/api/credit-line/calculate \
   -H "Content-Type: application/json" \
   -d '{
-    "creditLineFacility": {
-      "customerCreditLine": true,
-      "minimumSalaryRequired": 12,
-      "numberOfMinimumSalary": 23
+    "party": {
+      "partyID": "227791924"
     },
-    "creditProfile": {
-      "creditLine": 23123
+    "merchantReference": {
+      "merchantId": 800
     },
-    "accountBalance": [
+    "location": [
       {
-        "accountBalance": 123.67,
-        "accountBalanceType": "currentBalance"
-      }
-    ],
-    "creditLineFactor": [
-      {
-        "factor-item": [
-          {
-            "factor": 12,
-            "factorType": "creditLineCapFactor"
-          }
-        ]
+        "city": {
+          "code": "128"
+        }
       }
     ]
   }'

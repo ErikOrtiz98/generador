@@ -7,7 +7,6 @@ import lombok.NoArgsConstructor;
 @Data
 @AllArgsConstructor
 @NoArgsConstructor
-public class CreditLineFacilityResponse {
-    private double creditFacilityAvailableAmount;
-    private boolean hasCreditFacility;
+public class Party {
+    private String partyID;
 }
