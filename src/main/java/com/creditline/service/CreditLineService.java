@@ -15,14 +15,17 @@ public class CreditLineService {
 
     public ApiResponse calculateCreditLineFacility(CreditLineFacilityRequest request) {
         // Calcular el margen de la facilidad de crédito
-        double creditFacilityMargin = calculateMargin(request);
+        double creditFacilityAvailableAmount = calculateMargin(request);
 
         // Crear la respuesta
         CreditLineFacilityResponse facilityResponse = new CreditLineFacilityResponse();
-        facilityResponse.setCreditFacilityMargin(creditFacilityMargin);
+        facilityResponse.setCreditFacilityAvailableAmount(creditFacilityAvailableAmount);
+        facilityResponse.setHasCreditFacility(request.getCreditLineFacility().isCustomerCreditLine());
 
         ResponseData data = new ResponseData();
         data.setCreditLineFacility(facilityResponse);
+        data.setCreditProfile(request.getCreditProfile());
+        data.setAccountBalance(request.getAccountBalance());
 
         ResponseMeta meta = new ResponseMeta();
         meta.setTransactionID(UUID.randomUUID().toString());
@@ -38,6 +41,8 @@ public class CreditLineService {
     }
 
     private double calculateMargin(CreditLineFacilityRequest request) {
+        validateRequest(request);
+
         double baseAmount = request.getCreditProfile().getCreditLine();
         double minimumSalary = request.getCreditLineFacility().getMinimumSalaryRequired();
         double numberOfSalaries = request.getCreditLineFacility().getNumberOfMinimumSalary();
@@ -46,6 +51,20 @@ public class CreditLineService {
 
         // Fórmula de cálculo: creditLine * (numberOfMinimumSalary / minimumSalaryRequired) * factor + accountBalance
         return (baseAmount * (numberOfSalaries / minimumSalary) * (factor / 100)) + accountBalance;
+    }
+
+    private void validateRequest(CreditLineFacilityRequest request) {
+        if (request == null
+                || request.getCreditLineFacility() == null
+                || request.getCreditProfile() == null
+                || request.getAccountBalance() == null
+                || request.getAccountBalance().isEmpty()
+                || request.getCreditLineFactor() == null
+                || request.getCreditLineFactor().isEmpty()
+                || request.getCreditLineFactor().get(0).getFactorItem() == null
+                || request.getCreditLineFactor().get(0).getFactorItem().isEmpty()) {
+            throw new IllegalArgumentException("Invalid request payload: missing required fields for calculation");
+        }
     }
 
     private String getCurrentTimestamp() {

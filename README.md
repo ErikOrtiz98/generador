@@ -59,7 +59,7 @@ Calcula el margen de facilidad de crédito basado en los parámetros proporciona
   ],
   "creditLineFactor": [
     {
-      "factor-item": [
+      "factorItem": [
         {
           "factor": 12,
           "factorType": "creditLineCapFactor"
@@ -82,8 +82,18 @@ Calcula el margen de facilidad de crédito basado en los parámetros proporciona
   },
   "data": {
     "creditLineFacility": {
-      "creditFacilityMargin": 14521
-    }
+      "creditFacilityAvailableAmount": 75600,
+      "hasCreditFacility": false
+    },
+    "creditProfile": {
+      "creditLine": 23231
+    },
+    "accountBalance": [
+      {
+        "accountBalance": 23123,
+        "accountBalanceType": "currentBalance"
+      }
+    ]
   }
 }
 ```
@@ -110,7 +120,7 @@ curl -X POST http://localhost:8080/api/credit-line/calculate \
     ],
     "creditLineFactor": [
       {
-        "factor-item": [
+        "factorItem": [
           {
             "factor": 12,
             "factorType": "creditLineCapFactor"
