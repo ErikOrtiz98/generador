@@ -15,14 +15,17 @@ public class CreditLineService {
 
     public ApiResponse calculateCreditLineFacility(CreditLineFacilityRequest request) {
         // Calcular el margen de la facilidad de crédito
-        double creditFacilityMargin = calculateMargin(request);
+        double creditFacilityAvailableAmount = calculateMargin(request);
 
         // Crear la respuesta
         CreditLineFacilityResponse facilityResponse = new CreditLineFacilityResponse();
-        facilityResponse.setCreditFacilityMargin(creditFacilityMargin);
+        facilityResponse.setCreditFacilityAvailableAmount(creditFacilityAvailableAmount);
+        facilityResponse.setHasCreditFacility(false);
 
         ResponseData data = new ResponseData();
         data.setCreditLineFacility(facilityResponse);
+        data.setCreditProfile(request.getCreditProfile());
+        data.setAccountBalance(request.getAccountBalance());
 
         ResponseMeta meta = new ResponseMeta();
         meta.setTransactionID(UUID.randomUUID().toString());
