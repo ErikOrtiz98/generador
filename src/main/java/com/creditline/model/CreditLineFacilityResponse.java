@@ -8,5 +8,6 @@ import lombok.NoArgsConstructor;
 @AllArgsConstructor
 @NoArgsConstructor
 public class CreditLineFacilityResponse {
-    private double creditFacilityMargin;
+    private double creditFacilityAvailableAmount;
+    private boolean hasCreditFacility;
 }
