@@ -6,6 +6,7 @@ import com.creditline.dto.ResponseMeta;
 import com.creditline.model.CreditLineFacilityRequest;
 import com.creditline.model.CreditLineFacilityResponse;
 import org.springframework.stereotype.Service;
+
 import java.time.LocalDateTime;
 import java.time.format.DateTimeFormatter;
 import java.util.UUID;
@@ -17,7 +18,6 @@ public class CreditLineService {
         // Calcular el margen de la facilidad de crédito
         double creditFacilityAvailableAmount = calculateMargin(request);
 
-        // Crear la respuesta
         CreditLineFacilityResponse facilityResponse = new CreditLineFacilityResponse();
         facilityResponse.setCreditFacilityAvailableAmount(creditFacilityAvailableAmount);
         facilityResponse.setHasCreditFacility(false);
@@ -36,7 +36,6 @@ public class CreditLineService {
         ApiResponse response = new ApiResponse();
         response.setMeta(meta);
         response.setData(data);
-
         return response;
     }
 
