@@ -1,4 +1,3 @@
-# Generador - Credit Line REST Service
 
 Servicio REST simple desarrollado con Spring Boot para el cálculo de facilidades de líneas de crédito.
 
@@ -50,9 +49,18 @@ Calcula el margen de facilidad de crédito basado en los parámetros proporciona
   },
   "location": [
     {
-      "city": {
-        "code": "128"
-      }
+      "accountBalance": 123.67,
+      "accountBalanceType": "currentBalance"
+    }
+  ],
+  "creditLineFactor": [
+    {
+      "factorItem": [
+        {
+          "factor": 12,
+          "factorType": "creditLineCapFactor"
+        }
+      ]
     }
   ]
 }
@@ -70,9 +78,18 @@ Calcula el margen de facilidad de crédito basado en los parámetros proporciona
   },
   "data": {
     "creditLineFacility": {
-      "creditFacilityAvailableAmount": 102400,
-      "hasCreditFacility": true
-    }
+      "creditFacilityAvailableAmount": 75600,
+      "hasCreditFacility": false
+    },
+    "creditProfile": {
+      "creditLine": 23231
+    },
+    "accountBalance": [
+      {
+        "accountBalance": 23123,
+        "accountBalanceType": "currentBalance"
+      }
+    ]
   }
 }
 ```
@@ -91,9 +108,12 @@ curl -X POST http://localhost:8080/api/credit-line/calculate \
     },
     "location": [
       {
-        "city": {
-          "code": "128"
-        }
+        "factorItem": [
+          {
+            "factor": 12,
+            "factorType": "creditLineCapFactor"
+          }
+        ]
       }
     ]
   }'
