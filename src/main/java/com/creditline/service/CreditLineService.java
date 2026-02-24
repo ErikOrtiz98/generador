@@ -20,7 +20,7 @@ public class CreditLineService {
         // Crear la respuesta
         CreditLineFacilityResponse facilityResponse = new CreditLineFacilityResponse();
         facilityResponse.setCreditFacilityAvailableAmount(creditFacilityAvailableAmount);
-        facilityResponse.setHasCreditFacility(request.getCreditLineFacility().isCustomerCreditLine());
+        facilityResponse.setHasCreditFacility(false);
 
         ResponseData data = new ResponseData();
         data.setCreditLineFacility(facilityResponse);

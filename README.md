@@ -1,4 +1,3 @@
-# Generador - Credit Line REST Service
 
 Servicio REST simple desarrollado con Spring Boot para el cálculo de facilidades de líneas de crédito.
 
